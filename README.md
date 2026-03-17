@@ -1,8 +1,11 @@
 # 👋 Fernando Lima — Desenvolvedor Fullstack & Especialista em Automação
 
+[![Currículo Online](https://img.shields.io/badge/🔗%20Ver%20Currículo%20Online-22d3ee?style=for-the-badge)](https://curriculum-vitae-fernando-lima-dev.vercel.app/)
 [![Status](https://img.shields.io/badge/Status-Disponível%20para%20Oportunidades-22d3ee?style=for-the-badge)](https://www.linkedin.com/in/fernandolima-dev)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-fernandolima--dev-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/fernandolima-dev)
 [![Email](https://img.shields.io/badge/Email-Contato-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:fernandoassisoliveiralima@gmail.com)
+
+> **🌐 Acesse agora:** [curriculum-vitae-fernando-lima-dev.vercel.app](https://curriculum-vitae-fernando-lima-dev.vercel.app/)
 
 ## Sobre Mim
 
@@ -57,22 +60,26 @@ Busco oportunidades em **desenvolvimento de software**, **RPA**, **análise de p
 
 ## 📂 Sobre Este Projeto
 
-Este repositório contém meu **currículo online interativo**, construído com:
+Este repositório contém meu **currículo online interativo**, publicado e acessível em:
+
+🔗 **[curriculum-vitae-fernando-lima-dev.vercel.app](https://curriculum-vitae-fernando-lima-dev.vercel.app/)**
+
+### Stack
 
 - **HTML5** semântico
-- **Tailwind CSS** (visual com tema tech/dark)
+- **Tailwind CSS** (tema dark com estética tech)
 - **Lucide Icons**
 - Animações de scroll com **Intersection Observer API**
+- Deploy via **Vercel**
 
-### Como Visualizar
+### Rodando Localmente
 
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/seu-usuario/Curriculum-Vitae.git
-   ```
-2. Abra o arquivo `index.html` no navegador.
+```bash
+git clone https://github.com/seu-usuario/Curriculum-Vitae.git
+cd Curriculum-Vitae
+```
 
-> Não é necessária nenhuma instalação ou build — basta abrir o HTML diretamente.
+Abra o arquivo `index.html` no navegador — não é necessária nenhuma instalação ou build.
 
 ## 📬 Contato
 
