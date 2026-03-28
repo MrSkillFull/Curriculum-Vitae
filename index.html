@@ -155,6 +155,13 @@
 
 <body class="antialiased min-h-screen relative font-sans selection:bg-tech-cyan selection:text-tech-black">
 
+    <!-- Botão de Som / Mute -->
+    <button id="mute-btn"
+        class="fixed top-6 right-6 z-50 p-3 bg-tech-card border border-tech-cyan/30 rounded-full backdrop-blur-md text-tech-cyan hover:bg-tech-cyan/10 hover:border-tech-cyan/60 transition-all shadow-[0_0_10px_rgba(34,211,238,0.2)] hover:shadow-neon cursor-pointer"
+        aria-label="Alternar Som">
+        <i data-lucide="volume-x" class="w-5 h-5"></i>
+    </button>
+
     <!-- Background Tech Grid -->
     <div class="bg-grid"></div>
 
@@ -550,6 +557,45 @@
                 container.appendChild(bubble);
             }
         }
+
+        // Configuração da Trilha Sonora
+        const soundtrack = new Audio('assets/soundtrack.mp3');
+        soundtrack.loop = true;
+        soundtrack.volume = 0.1;
+
+        const muteBtn = document.getElementById('mute-btn');
+        let isMuted = true; // Inicia mutado visualmente/logicamente devido ao bloqueio de autoplay
+
+        const updateMuteButton = () => {
+            muteBtn.innerHTML = `<i data-lucide="${isMuted ? 'volume-x' : 'volume-2'}" class="w-5 h-5"></i>`;
+            lucide.createIcons();
+        };
+
+        const tryPlaySoundtrack = () => {
+            if (!isMuted) {
+                soundtrack.play().catch(err => console.log("Erro ao tocar soundtrack:", err));
+            } else {
+                soundtrack.pause();
+            }
+        };
+
+        muteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isMuted = !isMuted;
+            soundtrack.muted = isMuted;
+            updateMuteButton();
+            tryPlaySoundtrack();
+        });
+
+        // Tentar iniciar áudio no primeiro clique na página
+        document.body.addEventListener('click', () => {
+            if (isMuted) {
+                isMuted = false;
+                soundtrack.muted = false;
+                updateMuteButton();
+                tryPlaySoundtrack();
+            }
+        }, { once: true });
 
         // Lógica para animação de Fade-In ao rolar a página (Intersection Observer)
         document.addEventListener("DOMContentLoaded", () => {
