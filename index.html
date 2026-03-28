@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fernando Lima | Desenvolvedor Fullstack & Especialista em Automação</title>
-    <meta name="description" content="Currículo online de Fernando Lima - Desenvolvedor Fullstack, RPA e Automação de Processos.">
-    
+    <meta name="description"
+        content="Currículo online de Fernando Lima - Desenvolvedor Fullstack, RPA e Automação de Processos.">
+
     <!-- Google Fonts: Inter para texto longo, Fira Code para detalhes tech -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -50,35 +54,77 @@
         body {
             background-color: #030712;
             color: #e2e8f0;
-            background-image: 
+            /* Adicionado um gradiente vertical super sutil para dar a sensação de profundidade oceânica */
+            background-image:
                 radial-gradient(circle at 15% 50%, rgba(34, 211, 238, 0.04), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(34, 211, 238, 0.04), transparent 25%);
+                radial-gradient(circle at 85% 30%, rgba(34, 211, 238, 0.04), transparent 25%),
+                linear-gradient(to bottom, #0a1128 0%, #030712 100%);
+            background-attachment: fixed;
         }
 
         /* Scrollbar Tech */
         ::-webkit-scrollbar {
             width: 8px;
         }
+
         ::-webkit-scrollbar-track {
-            background: #030712; 
+            background: #030712;
         }
+
         ::-webkit-scrollbar-thumb {
-            background: #1e293b; 
+            background: #1e293b;
             border-radius: 4px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
-            background: #22d3ee; 
+            background: #22d3ee;
         }
 
         /* Efeito de background em grade estilo "Matrix/Grid" muito sutil */
         .bg-grid {
             background-size: 40px 40px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
             position: fixed;
             inset: 0;
             z-index: -1;
             pointer-events: none;
+        }
+
+        /* EFEITO MERGULHO: Bolhas Tech/Oceano */
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            border-radius: 50%;
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            box-shadow: inset 0 0 10px rgba(34, 211, 238, 0.05), 0 0 5px rgba(34, 211, 238, 0.1);
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.05) 0%, transparent 100%);
+            animation: float-up var(--duration) ease-in infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(0) translateX(0) scale(0.8);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: var(--max-opacity);
+            }
+
+            50% {
+                transform: translateY(-55vh) translateX(var(--sway)) scale(1);
+            }
+
+            90% {
+                opacity: var(--max-opacity);
+            }
+
+            100% {
+                transform: translateY(-110vh) translateX(calc(var(--sway) * -1)) scale(1.1);
+                opacity: 0;
+            }
         }
 
         /* Animações de entrada */
@@ -87,6 +133,7 @@
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
+
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
@@ -97,6 +144,7 @@
             border: 1px solid rgba(34, 211, 238, 0.1);
             transition: all 0.3s ease;
         }
+
         .tech-card:hover {
             border-color: rgba(34, 211, 238, 0.5);
             box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
@@ -104,38 +152,56 @@
         }
     </style>
 </head>
+
 <body class="antialiased min-h-screen relative font-sans selection:bg-tech-cyan selection:text-tech-black">
-    
+
+    <!-- Botão de Som / Mute -->
+    <button id="mute-btn"
+        class="fixed top-6 right-6 z-50 p-3 bg-tech-card border border-tech-cyan/30 rounded-full backdrop-blur-md text-tech-cyan hover:bg-tech-cyan/10 hover:border-tech-cyan/60 transition-all shadow-[0_0_10px_rgba(34,211,238,0.2)] hover:shadow-neon cursor-pointer"
+        aria-label="Alternar Som">
+        <i data-lucide="volume-x" class="w-5 h-5"></i>
+    </button>
+
     <!-- Background Tech Grid -->
     <div class="bg-grid"></div>
 
+    <!-- Container do Efeito Fundo do Mar -->
+    <div id="ocean-bg" class="fixed inset-0 z-[-2] overflow-hidden pointer-events-none"></div>
+
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
-        
+
         <!-- Header Principal -->
         <header class="fade-in mb-16 relative">
             <!-- Detalhe visual tech -->
             <div class="absolute -top-6 -left-6 w-12 h-12 border-t-2 border-l-2 border-tech-cyan opacity-50"></div>
-            
+
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <div class="inline-block px-3 py-1 mb-4 border border-tech-cyan/30 bg-tech-cyan/10 text-tech-cyan font-mono text-sm rounded backdrop-blur-sm">
-                        <i data-lucide="terminal" class="inline-block w-4 h-4 mr-2 mb-0.5"></i>Status: Disponível para Oportunidades
+                    <div
+                        class="inline-block px-3 py-1 mb-4 border border-tech-cyan/30 bg-tech-cyan/10 text-tech-cyan font-mono text-sm rounded backdrop-blur-sm">
+                        <i data-lucide="terminal" class="inline-block w-4 h-4 mr-2 mb-0.5"></i>Status: Disponível para
+                        Oportunidades
                     </div>
                     <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-2">
                         Fernando <span class="text-tech-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]">Lima</span>
                     </h1>
                     <h2 class="text-xl sm:text-2xl text-tech-muted font-light">
-                        Desenvolvedor Fullstack <span class="text-tech-cyan">|</span> RPA & Automação <span class="text-tech-cyan">|</span> Analista de Dados
+                        Desenvolvedor Fullstack <span class="text-tech-cyan">|</span> RPA & Automação <span
+                            class="text-tech-cyan">|</span> Analista de Dados
                     </h2>
                 </div>
-                
+
                 <div class="flex flex-col gap-2 font-mono text-sm text-tech-muted">
-                    <a href="mailto:fernandoassisoliveiralima@gmail.com" class="flex items-center gap-3 hover:text-tech-cyan transition-colors group">
-                        <i data-lucide="mail" class="w-4 h-4 group-hover:drop-shadow-[0_0_5px_rgba(34,211,238,0.8)]"></i>
+                    <a href="mailto:fernandoassisoliveiralima@gmail.com"
+                        class="flex items-center gap-3 hover:text-tech-cyan transition-colors group">
+                        <i data-lucide="mail"
+                            class="w-4 h-4 group-hover:drop-shadow-[0_0_5px_rgba(34,211,238,0.8)]"></i>
                         fernandoassisoliveiralima@gmail.com
                     </a>
-                    <a href="https://www.linkedin.com/in/fernandolima-dev" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 hover:text-tech-cyan transition-colors group">
-                        <i data-lucide="linkedin" class="w-4 h-4 group-hover:drop-shadow-[0_0_5px_rgba(34,211,238,0.8)]"></i>
+                    <a href="https://www.linkedin.com/in/fernandolima-dev" target="_blank" rel="noopener noreferrer"
+                        class="flex items-center gap-3 hover:text-tech-cyan transition-colors group">
+                        <i data-lucide="linkedin"
+                            class="w-4 h-4 group-hover:drop-shadow-[0_0_5px_rgba(34,211,238,0.8)]"></i>
                         linkedin.com/in/fernandolima-dev
                     </a>
                     <span class="flex items-center gap-3">
@@ -151,29 +217,46 @@
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-            
+
             <!-- Coluna Lateral (Esquerda) -->
             <div class="space-y-8 lg:col-span-1">
-                
+
                 <!-- Competências -->
                 <section class="fade-in bg-tech-card p-6 rounded-xl tech-card backdrop-blur-md">
                     <div class="flex items-center gap-3 mb-6">
                         <i data-lucide="code-2" class="text-tech-cyan w-6 h-6"></i>
-                        <h3 class="text-xl font-bold text-white border-b border-tech-cyan/30 pb-1 w-full uppercase tracking-wider text-sm font-mono">Hard Skills</h3>
+                        <h3
+                            class="text-xl font-bold text-white border-b border-tech-cyan/30 pb-1 w-full uppercase tracking-wider text-sm font-mono">
+                            Hard Skills</h3>
                     </div>
-                    
+
                     <div class="flex flex-wrap gap-2">
                         <!-- Gerado dinamicamente via Tailwind -->
-                        <span class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">Java</span>
-                        <span class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">Python</span>
-                        <span class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">C# / .NET</span>
-                        <span class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">JavaScript</span>
-                        <span class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">SQL / Relacional</span>
-                        <span class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">VBA</span>
-                        <span class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">RPA (Power Automate)</span>
-                        <span class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">Power Apps</span>
-                        <span class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">Power BI</span>
-                        <span class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">N8N</span>
+                        <span
+                            class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">Java</span>
+                        <span
+                            class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">Python</span>
+                        <span
+                            class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">C#
+                            / .NET</span>
+                        <span
+                            class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">JavaScript</span>
+                        <span
+                            class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">SQL
+                            / Relacional</span>
+                        <span
+                            class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">VBA</span>
+                        <span
+                            class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">RPA
+                            (Power Automate)</span>
+                        <span
+                            class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">Power
+                            Apps</span>
+                        <span
+                            class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">Power
+                            BI</span>
+                        <span
+                            class="px-3 py-1 bg-tech-dark border border-tech-cyan/20 text-tech-cyan rounded text-sm font-mono hover:border-tech-cyan/60 transition-colors cursor-default">N8N</span>
                     </div>
                 </section>
 
@@ -181,7 +264,9 @@
                 <section class="fade-in bg-tech-card p-6 rounded-xl tech-card backdrop-blur-md">
                     <div class="flex items-center gap-3 mb-6">
                         <i data-lucide="award" class="text-tech-cyan w-6 h-6"></i>
-                        <h3 class="text-xl font-bold text-white border-b border-tech-cyan/30 pb-1 w-full uppercase tracking-wider text-sm font-mono">Certificações</h3>
+                        <h3
+                            class="text-xl font-bold text-white border-b border-tech-cyan/30 pb-1 w-full uppercase tracking-wider text-sm font-mono">
+                            Certificações</h3>
                     </div>
                     <ul class="space-y-3 font-mono text-sm text-gray-300">
                         <li class="flex items-start gap-2">
@@ -211,7 +296,9 @@
                 <section class="fade-in bg-tech-card p-6 rounded-xl tech-card backdrop-blur-md">
                     <div class="flex items-center gap-3 mb-6">
                         <i data-lucide="globe" class="text-tech-cyan w-6 h-6"></i>
-                        <h3 class="text-xl font-bold text-white border-b border-tech-cyan/30 pb-1 w-full uppercase tracking-wider text-sm font-mono">Idiomas</h3>
+                        <h3
+                            class="text-xl font-bold text-white border-b border-tech-cyan/30 pb-1 w-full uppercase tracking-wider text-sm font-mono">
+                            Idiomas</h3>
                     </div>
                     <div class="space-y-4">
                         <div>
@@ -239,25 +326,35 @@
 
             <!-- Coluna Principal (Direita) -->
             <div class="space-y-10 lg:col-span-2">
-                
+
                 <!-- Resumo -->
                 <section class="fade-in">
                     <div class="flex items-center gap-3 mb-6">
                         <i data-lucide="user" class="text-tech-cyan w-6 h-6"></i>
-                        <h3 class="text-2xl font-bold text-white tracking-wide">Sys.Info <span class="text-tech-muted font-light text-lg">/ Resumo</span></h3>
+                        <h3 class="text-2xl font-bold text-white tracking-wide">Sys.Info <span
+                                class="text-tech-muted font-light text-lg">/ Resumo</span></h3>
                     </div>
-                    <div class="bg-tech-card p-6 rounded-xl tech-card border-l-4 border-l-tech-cyan backdrop-blur-md relative overflow-hidden">
+                    <div
+                        class="bg-tech-card p-6 rounded-xl tech-card border-l-4 border-l-tech-cyan backdrop-blur-md relative overflow-hidden">
                         <!-- Brilho de fundo sutil -->
                         <div class="absolute top-0 right-0 w-32 h-32 bg-tech-cyan/5 rounded-full blur-3xl"></div>
-                        
+
                         <p class="text-gray-300 leading-relaxed z-10 relative">
-                            Olá! Sou <strong class="text-white">Fernando Lima</strong>, estudante de Análise e Desenvolvimento de Sistemas e técnico em Administração. Com experiência em um programa de aprendizagem administrativa em multinacional norueguesa do setor de Óleo e Gás, aprendi na prática a mapear processos, identificar gargalos e <strong class="text-tech-cyan">implementar automações que geram eficiência real</strong>.
+                            Olá! Sou <strong class="text-white">Fernando Lima</strong>, estudante de Análise e
+                            Desenvolvimento de Sistemas e técnico em Administração. Com experiência em um programa de
+                            aprendizagem administrativa em multinacional norueguesa do setor de Óleo e Gás, aprendi na
+                            prática a mapear processos, identificar gargalos e <strong
+                                class="text-tech-cyan">implementar automações que geram eficiência real</strong>.
                         </p>
                         <p class="text-gray-300 leading-relaxed mt-4 z-10 relative">
-                            Hoje domino <strong>RPA, análise de dados, Java, Python, C#, JavaScript, VBA e SQL</strong>. Minha paixão é transformar tarefas repetitivas em soluções digitais inteligentes - seja desenvolvendo games, sistemas corporativos ou bots de automação.
+                            Hoje domino <strong>RPA, análise de dados, Java, Python, C#, JavaScript, VBA e SQL</strong>.
+                            Minha paixão é transformar tarefas repetitivas em soluções digitais inteligentes - seja
+                            desenvolvendo games, sistemas corporativos ou bots de automação.
                         </p>
                         <p class="text-gray-300 leading-relaxed mt-4 z-10 relative">
-                            Estou em busca de oportunidades em desenvolvimento de software, RPA, análise de processos ou automação de TI. <span class="italic text-tech-cyan">Vamos conversar? Adoro trocar ideias sobre tecnologia e projetos inovadores!</span>
+                            Estou em busca de oportunidades em desenvolvimento de software, RPA, análise de processos ou
+                            automação de TI. <span class="italic text-tech-cyan">Vamos conversar? Adoro trocar ideias
+                                sobre tecnologia e projetos inovadores!</span>
                         </p>
                     </div>
                 </section>
@@ -266,39 +363,53 @@
                 <section class="fade-in">
                     <div class="flex items-center gap-3 mb-8">
                         <i data-lucide="briefcase" class="text-tech-cyan w-6 h-6"></i>
-                        <h3 class="text-2xl font-bold text-white tracking-wide">Work.Log <span class="text-tech-muted font-light text-lg">/ Experiência</span></h3>
+                        <h3 class="text-2xl font-bold text-white tracking-wide">Work.Log <span
+                                class="text-tech-muted font-light text-lg">/ Experiência</span></h3>
                     </div>
 
                     <div class="relative border-l border-tech-cyan/30 ml-3 space-y-10 pb-4">
-                        
+
                         <!-- ABS -->
                         <div class="relative pl-8">
                             <!-- Ponto na timeline -->
-                            <div class="absolute -left-1.5 top-1.5 w-3 h-3 bg-tech-black border-2 border-tech-cyan rounded-full shadow-neon"></div>
-                            
+                            <div
+                                class="absolute -left-1.5 top-1.5 w-3 h-3 bg-tech-black border-2 border-tech-cyan rounded-full shadow-neon">
+                            </div>
+
                             <div class="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2">
                                 <h4 class="text-xl font-bold text-white">American Bureau of Shipping (ABS)</h4>
-                                <span class="font-mono text-sm text-tech-cyan mt-1 sm:mt-0 bg-tech-cyan/10 px-2 py-0.5 rounded border border-tech-cyan/20">Abr/2025 - Presente</span>
+                                <span
+                                    class="font-mono text-sm text-tech-cyan mt-1 sm:mt-0 bg-tech-cyan/10 px-2 py-0.5 rounded border border-tech-cyan/20">Abr/2025
+                                    - Presente</span>
                             </div>
-                            <h5 class="text-md font-medium text-gray-400 mb-4 uppercase tracking-wider text-sm">Auxiliar de Escritório Aprendiz <span class="text-tech-muted ml-2">| Rio de Janeiro, Brasil</span></h5>
-                            
+                            <h5 class="text-md font-medium text-gray-400 mb-4 uppercase tracking-wider text-sm">Auxiliar
+                                de Escritório Aprendiz <span class="text-tech-muted ml-2">| Rio de Janeiro,
+                                    Brasil</span></h5>
+
                             <ul class="space-y-4 text-gray-300 relative z-10">
                                 <li class="flex items-start">
                                     <i data-lucide="chevron-right" class="w-5 h-5 text-tech-cyan shrink-0 mr-2"></i>
                                     <div>
-                                        <strong class="text-white">Desenvolvimento Fullstack & RPA:</strong> Atuação no ciclo completo de software utilizando C#, .NET e Visual Studio, além da criação de robôs (RPA) com Microsoft Power Automate Desktop para eliminar tarefas repetitivas.
+                                        <strong class="text-white">Desenvolvimento Fullstack & RPA:</strong> Atuação no
+                                        ciclo completo de software utilizando C#, .NET e Visual Studio, além da criação
+                                        de robôs (RPA) com Microsoft Power Automate Desktop para eliminar tarefas
+                                        repetitivas.
                                     </div>
                                 </li>
                                 <li class="flex items-start">
                                     <i data-lucide="chevron-right" class="w-5 h-5 text-tech-cyan shrink-0 mr-2"></i>
                                     <div>
-                                        <strong class="text-white">Ecossistema Low-Code:</strong> Desenvolvimento de aplicativos e fluxos inteligentes com Power Apps e Power Automate, integrando soluções que agilizam a tomada de decisão.
+                                        <strong class="text-white">Ecossistema Low-Code:</strong> Desenvolvimento de
+                                        aplicativos e fluxos inteligentes com Power Apps e Power Automate, integrando
+                                        soluções que agilizam a tomada de decisão.
                                     </div>
                                 </li>
                                 <li class="flex items-start">
                                     <i data-lucide="chevron-right" class="w-5 h-5 text-tech-cyan shrink-0 mr-2"></i>
                                     <div>
-                                        <strong class="text-white">Data Analytics & AI:</strong> Construção de dashboards estratégicos em Power BI e implementação de Inteligência Artificial em soluções internas, focando na transformação digital do escritório.
+                                        <strong class="text-white">Data Analytics & AI:</strong> Construção de
+                                        dashboards estratégicos em Power BI e implementação de Inteligência Artificial
+                                        em soluções internas, focando na transformação digital do escritório.
                                     </div>
                                 </li>
                             </ul>
@@ -306,34 +417,49 @@
 
                         <!-- Subsea7 -->
                         <div class="relative pl-8 fade-in">
-                            <div class="absolute -left-1.5 top-1.5 w-3 h-3 bg-tech-black border-2 border-tech-cyan/50 rounded-full"></div>
-                            
+                            <div
+                                class="absolute -left-1.5 top-1.5 w-3 h-3 bg-tech-black border-2 border-tech-cyan/50 rounded-full">
+                            </div>
+
                             <div class="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2">
                                 <h4 class="text-xl font-bold text-white">Subsea7</h4>
-                                <span class="font-mono text-sm text-gray-400 mt-1 sm:mt-0 border border-gray-700 px-2 py-0.5 rounded bg-gray-900/50">Set/2023 - Jan/2025</span>
+                                <span
+                                    class="font-mono text-sm text-gray-400 mt-1 sm:mt-0 border border-gray-700 px-2 py-0.5 rounded bg-gray-900/50">Set/2023
+                                    - Jan/2025</span>
                             </div>
-                            <h5 class="text-md font-medium text-gray-400 mb-4 uppercase tracking-wider text-sm">Assistente Administrativo Aprendiz <span class="text-tech-muted ml-2">| Rio de Janeiro, Brasil</span></h5>
-                            
+                            <h5 class="text-md font-medium text-gray-400 mb-4 uppercase tracking-wider text-sm">
+                                Assistente Administrativo Aprendiz <span class="text-tech-muted ml-2">| Rio de Janeiro,
+                                    Brasil</span></h5>
+
                             <ul class="space-y-4 text-gray-300 relative z-10">
                                 <li class="flex items-start">
                                     <i data-lucide="chevron-right" class="w-5 h-5 text-tech-cyan shrink-0 mr-2"></i>
                                     <div>
-                                        <strong class="text-white">Transformação Digital (Setor de HSE):</strong> Automatizei o processo de solicitação de EPIs para toda a região Brasil utilizando o ecossistema Microsoft (Power Platform). 
-                                        <div class="mt-2 p-3 bg-tech-cyan/5 border border-tech-cyan/20 rounded font-mono text-sm text-tech-cyan shadow-sm">
-                                            > Resultado: Redução do tempo de resposta em 70% e economia estimada de R$ 800 mil/ano em desperdícios evitados.
+                                        <strong class="text-white">Transformação Digital (Setor de HSE):</strong>
+                                        Automatizei o processo de solicitação de EPIs para toda a região Brasil
+                                        utilizando o ecossistema Microsoft (Power Platform).
+                                        <div
+                                            class="mt-2 p-3 bg-tech-cyan/5 border border-tech-cyan/20 rounded font-mono text-sm text-tech-cyan shadow-sm">
+                                            > Resultado: Redução do tempo de resposta em 70% e economia estimada de R$
+                                            800 mil/ano em desperdícios evitados.
                                         </div>
                                     </div>
                                 </li>
                                 <li class="flex items-start">
                                     <i data-lucide="chevron-right" class="w-5 h-5 text-tech-cyan shrink-0 mr-2"></i>
                                     <div>
-                                        <strong class="text-white">Business Intelligence (Operações):</strong> Desenvolvi dashboards de Power BI para acompanhamento das atividades do setor e suporte ao time de Melhoria Operacional, transformando dados brutos em insights visuais.
+                                        <strong class="text-white">Business Intelligence (Operações):</strong>
+                                        Desenvolvi dashboards de Power BI para acompanhamento das atividades do setor e
+                                        suporte ao time de Melhoria Operacional, transformando dados brutos em insights
+                                        visuais.
                                     </div>
                                 </li>
                                 <li class="flex items-start">
                                     <i data-lucide="chevron-right" class="w-5 h-5 text-tech-cyan shrink-0 mr-2"></i>
                                     <div>
-                                        <strong class="text-white">Gestão de Processos:</strong> Apoio direto em rotinas críticas via SAP, controle de documentação técnica (TBTs e PTWs) e gestão de fluxos de trabalho no Pipefy.
+                                        <strong class="text-white">Gestão de Processos:</strong> Apoio direto em rotinas
+                                        críticas via SAP, controle de documentação técnica (TBTs e PTWs) e gestão de
+                                        fluxos de trabalho no Pipefy.
                                     </div>
                                 </li>
                             </ul>
@@ -345,15 +471,17 @@
                 <section class="fade-in">
                     <div class="flex items-center gap-3 mb-6">
                         <i data-lucide="graduation-cap" class="text-tech-cyan w-6 h-6"></i>
-                        <h3 class="text-2xl font-bold text-white tracking-wide">Edu.Data <span class="text-tech-muted font-light text-lg">/ Formação Acadêmica</span></h3>
+                        <h3 class="text-2xl font-bold text-white tracking-wide">Edu.Data <span
+                                class="text-tech-muted font-light text-lg">/ Formação Acadêmica</span></h3>
                     </div>
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        
+
                         <div class="bg-tech-card p-6 rounded-xl tech-card backdrop-blur-md">
                             <i data-lucide="laptop" class="w-8 h-8 text-tech-cyan/50 mb-4"></i>
                             <h4 class="text-lg font-bold text-white mb-1">Cruzeiro do Sul Virtual</h4>
-                            <p class="text-tech-cyan font-medium text-sm mb-3">Tecnólogo em Análise e Desenvolvimento de Sistemas (TI)</p>
+                            <p class="text-tech-cyan font-medium text-sm mb-3">Tecnólogo em Análise e Desenvolvimento de
+                                Sistemas (TI)</p>
                             <div class="flex items-center text-gray-400 font-mono text-xs mt-auto">
                                 <i data-lucide="calendar" class="w-3 h-3 mr-2"></i> Nov/2023 - Jun/2026
                             </div>
@@ -362,7 +490,8 @@
                         <div class="bg-tech-card p-6 rounded-xl tech-card backdrop-blur-md">
                             <i data-lucide="building-2" class="w-8 h-8 text-tech-cyan/50 mb-4"></i>
                             <h4 class="text-lg font-bold text-white mb-1">C. E. Sol Nascente</h4>
-                            <p class="text-gray-300 font-medium text-sm mb-3">Nível Médio Técnico, Administração e Negócios</p>
+                            <p class="text-gray-300 font-medium text-sm mb-3">Nível Médio Técnico, Administração e
+                                Negócios</p>
                             <div class="flex items-center text-gray-400 font-mono text-xs mt-auto">
                                 <i data-lucide="calendar" class="w-3 h-3 mr-2"></i> Fev/2019 - Nov/2021
                             </div>
@@ -377,13 +506,16 @@
         <!-- Footer -->
         <footer class="mt-20 pt-8 border-t border-tech-cyan/20 text-center fade-in">
             <p class="font-mono text-tech-muted text-sm">
-                <span class="text-tech-cyan">&lt;/&gt;</span> Desenvolvido com código, café e automação por <strong class="text-white">Fernando Lima</strong>.
+                <span class="text-tech-cyan">&lt;/&gt;</span> Desenvolvido com código, café e automação por <strong
+                    class="text-white">Fernando Lima</strong>.
             </p>
             <div class="mt-4 flex justify-center gap-4">
-                <a href="https://www.linkedin.com/in/fernandolima-dev" target="_blank" class="text-tech-muted hover:text-tech-cyan transition-colors" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/in/fernandolima-dev" target="_blank"
+                    class="text-tech-muted hover:text-tech-cyan transition-colors" aria-label="LinkedIn">
                     <i data-lucide="linkedin" class="w-5 h-5"></i>
                 </a>
-                <a href="mailto:fernandoassisoliveiralima@gmail.com" class="text-tech-muted hover:text-tech-cyan transition-colors" aria-label="Email">
+                <a href="mailto:fernandoassisoliveiralima@gmail.com"
+                    class="text-tech-muted hover:text-tech-cyan transition-colors" aria-label="Email">
                     <i data-lucide="mail" class="w-5 h-5"></i>
                 </a>
             </div>
@@ -396,8 +528,81 @@
         // Inicializa os ícones do Lucide
         lucide.createIcons();
 
+        // Sistema de Bolhas Tech / Oceano Profundo
+        function createBubbles() {
+            const container = document.getElementById('ocean-bg');
+            const bubbleCount = 30; // Quantidade de bolhas na tela
+
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+
+                // Propriedades aleatórias para movimento orgânico
+                const size = Math.random() * 50 + 10; // 10px a 60px
+                const left = Math.random() * 100; // 0% a 100% da tela
+                const duration = Math.random() * 15 + 10; // 10s a 25s subindo
+                const delay = Math.random() * 20; // Atraso inicial
+                const sway = (Math.random() - 0.5) * 150; // Balanço lateral (-75px a 75px)
+                const maxOpacity = Math.random() * 0.3 + 0.1; // Opacidade máxima entre 0.1 e 0.4
+
+                // Aplicando estilos inline
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${left}%`;
+                bubble.style.setProperty('--duration', `${duration}s`);
+                bubble.style.setProperty('--sway', `${sway}px`);
+                bubble.style.setProperty('--max-opacity', maxOpacity);
+                bubble.style.animationDelay = `${delay}s`;
+
+                container.appendChild(bubble);
+            }
+        }
+
+        // Configuração da Trilha Sonora
+        const soundtrack = new Audio('assets/soundtrack.mp3');
+        soundtrack.loop = true;
+        soundtrack.volume = 0.1;
+
+        const muteBtn = document.getElementById('mute-btn');
+        let isMuted = true; // Inicia mutado visualmente/logicamente devido ao bloqueio de autoplay
+
+        const updateMuteButton = () => {
+            muteBtn.innerHTML = `<i data-lucide="${isMuted ? 'volume-x' : 'volume-2'}" class="w-5 h-5"></i>`;
+            lucide.createIcons();
+        };
+
+        const tryPlaySoundtrack = () => {
+            if (!isMuted) {
+                soundtrack.play().catch(err => console.log("Erro ao tocar soundtrack:", err));
+            } else {
+                soundtrack.pause();
+            }
+        };
+
+        muteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isMuted = !isMuted;
+            soundtrack.muted = isMuted;
+            updateMuteButton();
+            tryPlaySoundtrack();
+        });
+
+        // Tentar iniciar áudio no primeiro clique na página
+        document.body.addEventListener('click', () => {
+            if (isMuted) {
+                isMuted = false;
+                soundtrack.muted = false;
+                updateMuteButton();
+                tryPlaySoundtrack();
+            }
+        }, { once: true });
+
         // Lógica para animação de Fade-In ao rolar a página (Intersection Observer)
         document.addEventListener("DOMContentLoaded", () => {
+            // Inicia o fundo animado
+            createBubbles();
+
+            // Inicia o observador de scroll
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
@@ -418,4 +623,5 @@
         });
     </script>
 </body>
+
 </html>
