@@ -1,5 +1,7 @@
 # 👋 Fernando Lima — Desenvolvedor Fullstack & Especialista em Automação
 
+> 🕒 **Última atualização:** Abril de 2026
+
 [![Currículo Online](https://img.shields.io/badge/🔗%20Ver%20Currículo%20Online-22d3ee?style=for-the-badge)](https://curriculum-vitae-fernando-lima-dev.vercel.app/)
 [![Status](https://img.shields.io/badge/Status-Disponível%20para%20Oportunidades-22d3ee?style=for-the-badge)](https://www.linkedin.com/in/fernandolima-dev)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-fernandolima--dev-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/fernandolima-dev)
@@ -27,10 +29,9 @@ Busco oportunidades em **desenvolvimento de software**, **RPA**, **análise de p
 ### American Bureau of Shipping (ABS)
 **Auxiliar de Escritório Aprendiz** · Rio de Janeiro · *Abr/2025 – Presente*
 
-- Desenvolvimento fullstack com **C#**, **.NET** e Visual Studio
-- Criação de robôs RPA com **Power Automate Desktop**
-- Aplicativos e fluxos com **Power Apps** e **Power Automate**
-- Dashboards estratégicos em **Power BI** e implementação de IA em soluções internas
+- **Desenvolvimento Fullstack:** Atuei no desenvolvimento de uma ferramenta utilizando C#, .NET e Visual Studio para geração de acompanhamento financeiro semanal
+- **Ecossistema Low-Code:** Atuei no desenvolvimento de um inventário patrimonial com Power Apps e Power Automate, integrando soluções que agilizam a tomada de decisão
+- **Data Analytics & AI:** Construção de dashboards estratégicos em Power BI e implementação de Inteligência Artificial em soluções internas, focando na transformação digital do escritório
 
 ### Subsea7
 **Assistente Administrativo Aprendiz** · Rio de Janeiro · *Set/2023 – Jan/2025*
@@ -47,11 +48,19 @@ Busco oportunidades em **desenvolvimento de software**, **RPA**, **análise de p
 
 ## 📜 Certificações
 
-- JavaScript Completo
-- Introdução à Automação com N8N
-- Microsoft Power BI
+- Power Apps
+- Engenharia de Prompts
+- MySQL
+- C#
 - Produtividade para Programadores
+- SCRUM para Desenvolvimento de Projetos
+- Introdução a Automação com N8N
+- Front-End Completo 2.0
+- Gerenciamento de Projetos
 - Design Gráfico
+- Ocupações Administrativas
+- JavaScript
+- Power BI
 
 ## 🌐 Idiomas
 
